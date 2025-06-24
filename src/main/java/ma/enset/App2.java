@@ -6,9 +6,10 @@ import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import scala.Tuple2;
 
-public class Main {
+public class App2 {
     public static void main(String[] args) {
-
+        // de calculer le prix total
+        //des ventes des produits par ville
         //Spark Configuration
         SparkConf conf = new SparkConf().setAppName("spark-tp-ventes").setMaster("local[*]");
         JavaSparkContext sc = new JavaSparkContext(conf);
@@ -16,17 +17,10 @@ public class Main {
         // transformer le fichier ventes.txt en RDD
         JavaRDD<String> ventesLines = sc.textFile("ventes.txt");
 
-        // transofrmation  d'un Autre RDD de type PaireRdd
-        JavaPairRDD<String,Integer> ventesParVille = ventesLines.mapToPair(line -> {
-            String [] lineDivise = line.split(" ");
-            String ville = lineDivise[1];
-            return new Tuple2<>(ville,1);
-        }).reduceByKey(Integer::sum);
+        JavaPairRDD<String,Double> prixTotalParVille = ventesLines.mapToPair(item ->
 
-        // action forEach
-        ventesParVille.collect().forEach(element -> System.out.println(element._1() + " : " + element._2()));
-
-
-
+                  new Tuple2<String,Double>(item.split(" ")[1],Double.parseDouble(item.split(" ")[3]))
+                ).reduceByKey(Double::sum);
+        prixTotalParVille.collect().forEach(element -> System.out.println(element._1 + " " + element._2));
     }
 }
