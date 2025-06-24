@@ -7,3 +7,7 @@ Développer une application Apache Spark permettant de calculer le **total des v
 Chaque ligne du fichier représente une vente, sous le format suivant :
 
 date ville produit prix
+
+une deuxième application permettant de calculer le prix total
+
+des ventes des produits par ville et par année.

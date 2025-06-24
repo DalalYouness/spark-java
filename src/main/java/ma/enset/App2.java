@@ -11,7 +11,7 @@ public class App2 {
         // de calculer le prix total
         //des ventes des produits par ville
         //Spark Configuration
-        SparkConf conf = new SparkConf().setAppName("spark-tp-ventes").setMaster("local[*]");
+        SparkConf conf = new SparkConf().setAppName("spark-tp2").setMaster("local[*]");
         JavaSparkContext sc = new JavaSparkContext(conf);
 
         // transformer le fichier ventes.txt en RDD
