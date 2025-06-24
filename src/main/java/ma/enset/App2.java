@@ -22,5 +22,16 @@ public class App2 {
                   new Tuple2<String,Double>(item.split(" ")[1],Double.parseDouble(item.split(" ")[3]))
                 ).reduceByKey(Double::sum);
         prixTotalParVille.collect().forEach(element -> System.out.println(element._1 + " " + element._2));
+
+        // par annee
+        System.out.println("**********************************");
+        JavaPairRDD<String,Double> prixTotalParAnnee = ventesLines.mapToPair(item ->
+
+                new Tuple2<String,Double>(item.split(" ")[0],Double.parseDouble(item.split(" ")[3]))
+        ).reduceByKey(Double::sum);
+        prixTotalParAnnee.collect().forEach(element -> System.out.println(element._1 + " " + element._2));
+
+
+
     }
 }
